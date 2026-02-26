@@ -1,0 +1,17 @@
+The project workflow is split into 3 domains: prod, debug, and qemu
+Once a development mode is chose with "make use DEV_MODE=<selected_mode>" each tool script will only refrence that mode.
+Each mode has its own respective build output directory to minimize rebuilds.
+
+For example doing this creates a build for each mode:
+make use DEV_MODE=prod
+make build
+make use DEV_MODE=debug
+make build
+make use DEV_MODE=qemu
+make build
+
+The workflow for development is as follows:
+1) make use DEV_MODE=<selected_mode> (switch to mode & refrence that respective build)
+2) make menuconfig                   (make modifications to the defconfig for that mode)
+3) make saveconfig                   (save config to respective mode defconfig file)
+4) make build                        (Build with outputs in the output-<mode> directory)
