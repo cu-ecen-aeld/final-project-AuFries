@@ -1,4 +1,4 @@
-.PHONY: menuconfig saveconfig use build clean qemu qemu-build
+.PHONY: menuconfig saveconfig use build clean qemu qemu-build deploy
 
 DEV_MODE ?= prod
 CLEAN_MODE ?= clean
@@ -24,6 +24,9 @@ qemu:
 qemu-build:
 	./envhub br:use qemu
 	./envhub br:build qemu
+
+deploy:
+	sudo ./tools/deploy_netboot.sh
 
 .PHONY: current
 

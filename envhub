@@ -13,13 +13,12 @@ Usage:
   ./envhub <command> [args...]
 
 Commands:
-  br:use                  Select profile/defconfig (prod|debug|qemu or defconfig name)
+  br:use                   Select profile/defconfig (prod|debug|qemu or defconfig name)
   br:menuconfig            Open Buildroot menuconfig for active profile (per-profile output dir)
   br:save-defconfig        Save current profile's .config back to active defconfig (or arg)
   br:build                 Build active profile (or pass prod|debug|qemu|defconfig to override)
   br:clean                 Clean active profile output (clean|dirclean|distclean) [optional profile]
   qemu                     Run QEMU using qemu profile output (or pass profile/defconfig)
-  flash:sd <device>        Flash SD card (dangerous; requires device path)
 
 Examples:
   ./envhub br:use qemu
@@ -40,7 +39,7 @@ case "$cmd" in
   br:build)             exec "$TOOLS_DIR/br_build.sh" "$@" ;;
   br:clean)             exec "$TOOLS_DIR/br_clean.sh" "$@" ;;
   qemu)                 exec "$TOOLS_DIR/qemu_run.sh" "$@" ;;
-  flash:sd)             exec "$TOOLS_DIR/flash_sd.sh" "$@" ;;
+  deploy)               exec "$TOOLS_DIR/deploy_netboot.sh" "$@" ;;
   -h|--help|help|"")    usage; exit 0 ;;
   *) echo "Unknown command: $cmd" >&2; usage; exit 2 ;;
 esac
