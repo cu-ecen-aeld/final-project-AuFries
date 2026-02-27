@@ -40,6 +40,8 @@ case "$cmd" in
   br:clean)             exec "$TOOLS_DIR/br_clean.sh" "$@" ;;
   qemu)                 exec "$TOOLS_DIR/qemu_run.sh" "$@" ;;
   deploy)               exec "$TOOLS_DIR/deploy_netboot.sh" "$@" ;;
+  linux:menuconfig)     exec "$TOOLS_DIR/linux_menuconfig.sh" "$@" ;;
+  linux:saveconfig)     exec "$TOOLS_DIR/linux_saveconfig.sh" "$@" ;;
   -h|--help|help|"")    usage; exit 0 ;;
   *) echo "Unknown command: $cmd" >&2; usage; exit 2 ;;
 esac

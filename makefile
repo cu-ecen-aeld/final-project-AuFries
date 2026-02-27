@@ -54,3 +54,15 @@ current:
 	if [ -d "buildroot/$$outdir/images" ] && ls "buildroot/$$outdir/images" >/dev/null 2>&1; then echo "yes"; else echo "no"; fi; \
 	if [ -f "buildroot/$$outdir/images/Image" ]; then echo "  kernel: buildroot/$$outdir/images/Image"; fi; \
 	if [ -f "buildroot/$$outdir/images/rootfs.ext4" ]; then echo "  rootfs: buildroot/$$outdir/images/rootfs.ext4"; fi
+
+.PHONY: kmenuconfig ksaveconfig saveall
+
+kmenuconfig:
+	./envhub linux:menuconfig
+
+ksaveconfig:
+	./envhub linux:saveconfig
+
+saveall:
+	./envhub br:save-defconfig
+	./envhub linux:saveconfig
