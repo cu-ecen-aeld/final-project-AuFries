@@ -1,22 +1,16 @@
 /dts-v1/;
 /plugin/;
 
-/ {
-  compatible = "ti,am335x-bone-black", "ti,am335x-bone", "ti,am33xx";
+&spi1 {
+    status = "okay";
 
-  fragment@0 {
-    target-path = "/ocp/interconnect@48000000/segment@0/target-module@30000/spi@0";
-    __overlay__ {
-      status = "okay";
-
-      #address-cells = <1>;
-      #size-cells = <0>;
-
-      spidev@0 {
-        compatible = "rohm,dh2228fv"; // PLACEHOLDER COMPATIBLE FOR TESTING.
-        reg = <0>;
-        spi-max-frequency = <24000000>;
-      };
+    display@0 {
+        compatible = "adafruit,yx240qv29", "ilitek,ili9341";
+        reg = <0>;                       /* CS0 */
+        spi-max-frequency = <32000000>;
+        dc-gpios = <&gpio1 12 GPIO_ACTIVE_HIGH>;    /* pick your GPIO */
+        reset-gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>; /* pick your GPIO */
+        rotation = <270>;                 /* optional */
+        /* backlight = <&backlight>; */   /* optional */
     };
-  };
 };

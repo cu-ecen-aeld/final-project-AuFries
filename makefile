@@ -1,6 +1,6 @@
 .PHONY: menuconfig saveconfig use build clean qemu qemu-build deploy
 
-DEV_MODE ?= prod
+PROFILE ?= prod
 CLEAN_MODE ?= clean
 
 menuconfig:
@@ -10,7 +10,7 @@ saveconfig:
 	./envhub br:save-defconfig
 
 use:
-	./envhub br:use $(DEV_MODE)
+	./envhub br:use $(PROFILE)
 
 build:
 	./envhub br:build
