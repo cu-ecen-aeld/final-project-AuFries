@@ -1,0 +1,14 @@
+/dts-v1/;
+/plugin/;
+
+&i2c2 {
+    status = "okay";
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    scd30@61 { compatible = "sensirion,scd30"; reg = <0x61>; }; // ADDED IN DEVICETREE
+    sgp30@58 { compatible = "sensirion,sgp30"; reg = <0x58>; }; // ADDED IN DEVICETREE
+    bmp580@47 { compatible = "bosch,bmp580";  reg = <0x47>; };  // ADDED IN DEVICETREE
+    ina219@40 { compatible = "ti,ina219";     reg = <0x40>; };  // ADDED IN DEVICETREE
+    rtc@68    { compatible = "maxim,ds3231";  reg = <0x68>; };  // ADDED IN DEVICETREE
+};
