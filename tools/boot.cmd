@@ -14,7 +14,7 @@ setenv fdtfile  am335x-boneblack.dtb
 # NFS export path
 setenv nfsroot /srv/nfs/bbb
 
-setenv bootargs "console=ttyS0,115200n8 root=/dev/nfs rw nfsroot=${serverip}:${nfsroot},vers=3,tcp ip=${ipaddr}:${serverip}::${netmask}:bbb:eth0:off"
+setenv bootargs "console=ttyS0,115200n8 vt.global_cursor_default=0 root=/dev/nfs rw nfsroot=${serverip}:${nfsroot},vers=3,tcp ip=${ipaddr}:${serverip}::${netmask}:bbb:eth0:off"
 
 echo "TFTP kernel..."
 tftpboot ${loadaddr} ${bootfile}

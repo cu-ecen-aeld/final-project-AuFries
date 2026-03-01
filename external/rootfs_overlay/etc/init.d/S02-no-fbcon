@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Unbind framebuffer console so it can't draw cursor/text on fb0
+for x in /sys/class/vtconsole/vtcon*; do
+    [ -f "$x/name" ] || continue
+    if grep -qi "frame buffer" "$x/name"; then
+        echo 0 > "$x/bind"
+    fi
+done
+
+exit 0
