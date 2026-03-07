@@ -1,0 +1,2 @@
+source "$BR2_EXTERNAL_ENVHUB_PATH/package/lvgl-graphics/Config.in"
+source "$BR2_EXTERNAL_ENVHUB_PATH/package/envhub-app/Config.in"
