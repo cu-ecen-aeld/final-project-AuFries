@@ -1,0 +1,5 @@
+config BR2_PACKAGE_LVGL_GRAPHICS
+	bool "lvgl-graphics"
+	select BR2_PACKAGE_LIBDRM
+	help
+	  Includes the LVGL graphics lib

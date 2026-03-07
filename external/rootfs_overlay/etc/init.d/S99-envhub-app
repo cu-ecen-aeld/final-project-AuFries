@@ -1,0 +1,58 @@
+#!/bin/sh
+
+DAEMON=envhub-app
+DAEMON_PATH=/usr/bin/$DAEMON
+PIDFILE=/var/run/$DAEMON.pid
+
+start() {
+	printf 'Starting %s: ' "$DAEMON"
+	start-stop-daemon --start --background --make-pidfile \
+		--pidfile "$PIDFILE" --exec "$DAEMON_PATH"
+	status=$?
+	if [ "$status" -eq 0 ]; then
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+	return "$status"
+}
+
+stop() {
+	printf 'Stopping %s: ' "$DAEMON"
+	start-stop-daemon --stop --pidfile "$PIDFILE" --exec "$DAEMON_PATH"
+	status=$?
+	if [ "$status" -eq 0 ]; then
+		while start-stop-daemon --stop --test --quiet \
+			--pidfile "$PIDFILE" --exec "$DAEMON_PATH"; do
+			sleep 0.1
+		done
+		rm -f "$PIDFILE"
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+	return "$status"
+}
+
+restart() {
+	stop
+	start
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		restart
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+		;;
+esac
+
+exit 0
