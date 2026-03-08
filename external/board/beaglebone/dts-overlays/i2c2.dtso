@@ -24,5 +24,8 @@
         shunt-resistor = <100000>; // (microohms) -> 0.1 Ohm
     };
 
-    rtc@68    { compatible = "maxim,ds3231";  reg = <0x68>; };
+    rtc@68 { 
+        compatible = "maxim,ds3231";  
+        reg = <0x68>; 
+    };
 };
