@@ -1,0 +1,63 @@
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
+#include <dt-bindings/pinctrl/am33xx.h>
+
+/ {
+    compatible = "ti,am335x-bone-black", "ti,am335x-bone";
+
+    fragment@0 {
+        target = <&am33xx_pinmux>;
+        __overlay__ {
+            softpower_pins: pinmux_softpower_pins {
+                pinctrl-single,pins = <
+                    /* P8_15 = gpmc_ad15 = gpio1_15 : SparkFun MK2 PUSH */
+                    AM33XX_IOPAD(AM335X_PIN_GPMC_AD15, PIN_INPUT_PULLUP | MUX_MODE7)
+
+                    /* P8_16 = gpmc_ad14 = gpio1_14 : SparkFun MK2 OFF */
+                    AM33XX_IOPAD(AM335X_PIN_GPMC_AD14, PIN_OUTPUT_PULLDOWN | MUX_MODE7)
+                >;
+            };
+        };
+    };
+
+    /*
+     * gpio-keys for PUSH interrupt/input event
+     */
+    fragment@1 {
+        target-path = "/";
+        __overlay__ {
+            gpio_keys_softpower: gpio-keys {
+                compatible = "gpio-keys";
+                pinctrl-names = "default";
+                pinctrl-0 = <&softpower_pins>;
+                status = "okay";
+
+                power_button {
+                    label = "soft-power-push";
+                    linux,code = <KEY_POWER>;
+                    gpios = <&gpio1 15 GPIO_ACTIVE_LOW>;
+                    debounce-interval = <10>;
+                    wakeup-source;
+                };
+            };
+        };
+    };
+
+    /*
+     * gpio-hog for OFF line: keep it low by default so power stays on
+     */
+    fragment@2 {
+        target = <&gpio1>;
+        __overlay__ {
+            soft_power_off {
+                gpio-hog;
+                gpios = <14 GPIO_ACTIVE_HIGH>;
+                output-low;
+                line-name = "soft-power-off";
+            };
+        };
+    };
+};
