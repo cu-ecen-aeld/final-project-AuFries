@@ -13,19 +13,16 @@
         __overlay__ {
             softpower_pins: pinmux_softpower_pins {
                 pinctrl-single,pins = <
-                    /* P8_15 = gpmc_ad15 = gpio1_15 : SparkFun MK2 PUSH */
+                    /* P8_15 = gpio1_15 : PUSH */
                     AM33XX_IOPAD(AM335X_PIN_GPMC_AD15, PIN_INPUT_PULLUP | MUX_MODE7)
 
-                    /* P8_16 = gpmc_ad14 = gpio1_14 : SparkFun MK2 OFF */
+                    /* P8_16 = gpio1_14 : OFF */
                     AM33XX_IOPAD(AM335X_PIN_GPMC_AD14, PIN_OUTPUT_PULLDOWN | MUX_MODE7)
                 >;
             };
         };
     };
 
-    /*
-     * gpio-keys for PUSH interrupt/input event
-     */
     fragment@1 {
         target-path = "/";
         __overlay__ {
@@ -42,21 +39,6 @@
                     debounce-interval = <10>;
                     wakeup-source;
                 };
-            };
-        };
-    };
-
-    /*
-     * gpio-hog for OFF line: keep it low by default so power stays on
-     */
-    fragment@2 {
-        target = <&gpio1>;
-        __overlay__ {
-            soft_power_off {
-                gpio-hog;
-                gpios = <14 GPIO_ACTIVE_HIGH>;
-                output-low;
-                line-name = "soft-power-off";
             };
         };
     };
